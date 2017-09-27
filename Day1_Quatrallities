@@ -1,0 +1,77 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+#include <numeric>
+using namespace std;
+
+float GetMedian(vector<float> numbers);
+
+
+int main() {
+	/* Enter your code here. Read input from STDIN. Print output to STDOUT */
+	int inputSize = 0;
+	vector<float> numbers;
+
+	cin >> inputSize;
+	while (inputSize--)
+	{
+		float num = 0;
+		cin >> num;
+		numbers.emplace_back(num);
+	}
+	std::sort(std::begin(numbers), std::end(numbers));
+
+	float Q2 = 0.0;
+
+	int vectorSize = numbers.size();
+
+	
+
+	vector<float> lowerHalf;
+	vector<float> upperHalf;
+	if (vectorSize % 2 == 0)
+	{
+
+		std::copy_n(std::begin(numbers), (vectorSize / 2), std::back_inserter(lowerHalf));
+		// std::reverse_copy(std::begin(numbers) , (vectorSize / 2), std::back_inserter(upperHalf));
+		std::copy_n(std::rbegin(numbers), (vectorSize / 2), std::back_inserter(upperHalf));
+	}
+	else
+	{
+		std::copy_n(std::begin(numbers), ((vectorSize - 1) / 2), std::back_inserter(lowerHalf));
+		std::copy_n(std::rbegin(numbers), ((vectorSize - 1) / 2), std::back_inserter(upperHalf));
+	}
+
+	cout << GetMedian(lowerHalf) << endl;
+	cout << GetMedian(numbers) << endl;
+	cout << GetMedian(upperHalf) << endl;
+
+	return 0;
+}
+
+
+
+float GetMedian(vector<float> numbers)
+{
+	float median = 0.0;
+
+	int vectorSize = numbers.size();
+
+	if (vectorSize)
+	{
+		if (vectorSize % 2 == 0)
+		{
+			median = (numbers[(vectorSize / 2) - 1] + numbers[(vectorSize / 2)]) / 2.0;
+		}
+		else
+		{
+			median = (numbers[((vectorSize - 1) / 2)]);
+		}
+	}
+
+
+	return median;
+}
