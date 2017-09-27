@@ -1,0 +1,113 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+using namespace std;
+
+float GetMedian(vector<float> numbers);
+
+
+int main() {
+	/* Enter your code here. Read input from STDIN. Print output to STDOUT */
+	int inputSize = 0;
+	vector<float> elements;
+
+	cin >> inputSize;
+	int nElements = inputSize;
+	while (nElements--)
+	{
+		float num = 0;
+		cin >> num;
+
+		elements.emplace_back(num);
+	}
+
+
+
+	nElements = inputSize;
+	vector<float> frequency;
+
+	int nSetSize = 0;
+	while (nElements--)
+	{
+		float num = 0;
+		cin >> num;
+		nSetSize += num;
+		// cout << "Vectorsize0: "  << num << endl;
+		frequency.emplace_back(num);
+	}
+
+
+
+	vector<float> set;
+	set.resize(nSetSize);
+	// cout << "Vectorsize: "  << nSetSize << endl;
+
+	int vectorSize = set.size();
+
+	// cout << "Vectorsize_3: "  << vectorSize << endl;
+
+	int freq = 0;
+	auto  Position = std::begin(set);
+	for (auto elem : elements)
+	{
+		//   cout << "Vectorsize_1: "  << elem << endl;
+		Position = std::fill_n(Position, frequency[freq], elem);
+		++freq;
+	}
+
+	std::sort(std::begin(set), std::end(set));
+
+	vector<float> lowerHalf;
+	vector<float> upperHalf;
+
+
+
+
+	if (vectorSize % 2 == 0)
+	{
+
+		std::copy_n(std::begin(set), (vectorSize / 2), std::back_inserter(lowerHalf));
+		// std::reverse_copy(std::begin(numbers) , (vectorSize / 2), std::back_inserter(upperHalf));
+		std::copy_n(std::rbegin(set), (vectorSize / 2), std::back_inserter(upperHalf));
+	}
+	else
+	{
+		std::copy_n(std::begin(set), ((vectorSize - 1) / 2), std::back_inserter(lowerHalf));
+		std::copy_n(std::rbegin(set), ((vectorSize - 1) / 2), std::back_inserter(upperHalf));
+	}
+
+	cout.setf(ios::fixed);
+	cout << std::setprecision(1) << (GetMedian(upperHalf) - GetMedian(lowerHalf)) << endl;
+	//cout << (GetMedian(upperHalf)  - GetMedian(lowerHalf)) << endl;
+
+
+	return 0;
+}
+
+
+
+
+float GetMedian(vector<float> numbers)
+{
+	float median = 0.0;
+
+	int vectorSize = numbers.size();
+
+	if (vectorSize)
+	{
+		if (vectorSize % 2 == 0)
+		{
+			median = (numbers[(vectorSize / 2) - 1] + numbers[(vectorSize / 2)]) / 2.0;
+		}
+		else
+		{
+			median = (numbers[((vectorSize - 1) / 2)]);
+		}
+	}
+
+
+	return median;
+}
