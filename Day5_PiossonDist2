@@ -1,0 +1,24 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+using namespace std;
+
+
+
+int main() {
+	/* Enter your code here. Read input from STDIN. Print output to STDOUT */
+	float M = 0.0;
+	float K = 0.0;
+
+	cin >> M;
+	cin >> K;
+
+	cout.setf(ios::fixed);
+	cout << std::setprecision(3) << (160 + 40 * (M + (M * M))) << endl;
+	cout << std::setprecision(3) << (128 + 40 * (K + (K * K))) << endl;
+	return 0;
+}
+
