@@ -1,0 +1,42 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+using namespace std;
+float Factorrial(float PrevResult, float Number);
+
+
+
+int main() {
+	/* Enter your code here. Read input from STDIN. Print output to STDOUT */
+	float M = 0.0;
+	float e = 2.71828;
+	float K = 0.0;
+	float prevResult = 1.00;
+
+	cin >> M;
+	cin >> K;
+
+	cout.setf(ios::fixed);
+	cout << std::setprecision(3) << (((pow(M, K))  * (pow(e, (0 - M)))) / (Factorrial(prevResult, K))) << endl;
+	return 0;
+}
+
+
+float Factorrial(float PrevResult, float Number)
+{
+	if (Number)
+	{
+		PrevResult *= Number;
+		return Factorrial(PrevResult, --Number);
+	}
+	else
+	{
+		return PrevResult;
+	}
+
+}
+
+
