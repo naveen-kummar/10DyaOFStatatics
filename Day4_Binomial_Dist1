@@ -1,0 +1,63 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+using namespace std;
+
+float Factorrial(float PrevResult, float Number);
+float ncrCombinations(float p, float n, float r);
+
+
+int main() {
+	/* Enter your code here. Read input from STDIN. Print output to STDOUT */
+	float e;
+	float s;
+	cin >> e;
+	cin >> s;
+	float p = e / 100;
+	float n = s;
+	//float r = 2;
+
+	//float atleast2 = ncrCombinations(p, n, 2);
+
+
+
+
+	cout.setf(ios::fixed);
+	cout << std::setprecision(3) << 1 - ncrCombinations(p, n, 3) << endl;
+	cout << std::setprecision(3) << ncrCombinations(p, n, 2) << endl;
+	return 0;
+}
+
+
+float ncrCombinations(float p, float n, float r)
+{
+	float q = (1 - p);
+
+	float pf = 0;
+	float prevResult = 1.00;
+
+	for (r; r <= n; r++)
+	{
+		pf += ((Factorrial(prevResult, n)) / ((Factorrial(prevResult, r)) * (Factorrial(prevResult, n - r)))) * (pow(p, r)) * (pow(q, (n - r)));
+	}
+
+	return pf;
+}
+
+
+float Factorrial(float PrevResult, float Number)
+{
+	if (Number)
+	{
+		PrevResult *= Number;
+		return Factorrial(PrevResult, --Number);
+	}
+	else
+	{
+		return PrevResult;
+	}
+
+}
