@@ -1,0 +1,88 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <algorithm>
+#include <iomanip>
+#include <numeric>
+using namespace std;
+
+
+int main() {
+	/* Enter your code here. Read input from STDIN. Print output to STDOUT */
+	float inputSize = 0.0;
+	vector<float> X_nums;
+    vector<float> Y_nums;
+    
+
+	cin >> inputSize;
+	float TempNum = inputSize;
+	while (TempNum--)
+	{
+		float num = 0;
+		cin >> num;
+		X_nums.emplace_back(num);
+	}
+    
+    TempNum = inputSize;
+	while (TempNum--)
+	{
+		float num = 0;
+		cin >> num;
+		Y_nums.emplace_back(num);
+	}
+    
+    //Calcullate Rank
+    vector<float> X_sorted;
+    vector<float> Y_sorted;
+    vector<int> X_rank;
+    vector<int> Y_rank;
+    
+    std::copy(X_nums.begin(), X_nums.end(),
+              std::back_inserter(X_sorted));
+    
+    std::copy(Y_nums.begin(), Y_nums.end(),
+              std::back_inserter(Y_sorted));
+    
+    std::sort(std::begin(X_nums), std::end(X_nums));
+    
+    std::sort(std::begin(Y_nums), std::end(Y_nums));
+    
+    for (auto SortedElem : X_sorted)
+    {
+        auto result1 = std::find(std::begin(X_nums), std::end(X_nums), SortedElem);
+        //cout << "Sorted Elem :" << SortedElem<< " - X Dist :"  << std::distance(X_nums.begin(), result1)<< endl;
+        X_rank.emplace_back(std::distance(X_nums.begin(), result1));
+    }
+    
+    for (auto SortedElem : Y_sorted)
+    {
+        auto result1 = std::find(std::begin(Y_nums), std::end(Y_nums), SortedElem);
+        // cout << "Y Dist : " << std::distance(Y_nums.begin(), result1)<< endl;
+        Y_rank.emplace_back(std::distance(Y_nums.begin(), result1));
+    }
+    
+    //Calcute distance squares
+    float sqrdistance = 0.0;
+
+	for(int i = 0; i < inputSize ; i++ )
+	{
+		sqrdistance += pow((X_rank[i] - Y_rank[i]), 2.0);
+         
+	} 
+    
+   
+    
+    float Numerator = 6 * sqrdistance;
+    float Denominator = inputSize * ((inputSize * inputSize) - 1);
+    
+    // cout << "Numerator : " <<Numerator<< endl;
+        
+    	cout.setf(ios::fixed);
+	cout << std::setprecision(3) << 1 - (Numerator/Denominator) << endl;
+    
+    
+  
+	return 0;
+}
