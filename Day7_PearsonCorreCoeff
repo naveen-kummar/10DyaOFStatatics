@@ -1,0 +1,54 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <algorithm>
+#include <iomanip>
+#include <numeric>
+using namespace std;
+
+
+int main() {
+	/* Enter your code here. Read input from STDIN. Print output to STDOUT */
+	float inputSize = 0.0;
+	vector<float> X_nums;
+    vector<float> Y_nums;
+    
+    float Xmean = 6.73;
+    float Xsd = 2.39251;
+    float Ymean = 37.8;
+    float Ysd = 55.1993;
+
+	cin >> inputSize;
+	float TempNum = inputSize;
+	while (TempNum--)
+	{
+		float num = 0;
+		cin >> num;
+		X_nums.emplace_back(num);
+	}
+    
+    TempNum = inputSize;
+	while (TempNum--)
+	{
+		float num = 0;
+		cin >> num;
+		Y_nums.emplace_back(num);
+	}
+    
+    //Calcullate covariance:
+    float covXn = 0.0;
+    for(int i = 0; i < inputSize ; i++ )
+    {
+        //covXn += ( fabsf (X_nums[i] - Xmean)) * (fabsf (Y_nums[i] - Ymean));
+        covXn += (  (X_nums[i] - Xmean)) * ( (Y_nums[i] - Ymean));
+    }
+    
+    float denominator = inputSize * Xsd * Ysd;
+    
+	cout.setf(ios::fixed);
+	cout << std::setprecision(3) << covXn / denominator << endl;
+
+	return 0;
+}
