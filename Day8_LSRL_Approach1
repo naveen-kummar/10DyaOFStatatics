@@ -1,0 +1,100 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <algorithm>
+#include <iomanip>
+#include <numeric>
+using namespace std;
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    
+    	/* Enter your code here. Read input from STDIN. Print output to STDOUT */
+	float inputSize = 5.0;
+	vector<float> X_nums;
+    vector<float> Y_nums;
+    
+    float Xmean = 0;
+    float Xsd = 0;
+    float Ymean = 0;
+    float Ysd = 0;
+
+	//cin >> inputSize;
+	float TempNum = inputSize;
+    float SumOfXY = 0.0;
+	while (TempNum--)
+	{
+		float num = 0.0;
+        float Temp = 0.0;
+		cin >> num;
+		X_nums.emplace_back(num);
+       // cout << "X: " << num ;
+        Temp = num;
+        cin >> num;
+		Y_nums.emplace_back(num);
+        //cout << "  Y: "  << num << endl;
+        SumOfXY += Temp * num;
+	}
+    
+     
+    //Calullate mean 
+    float SumOfXi = std::accumulate(std::begin(X_nums), std::end(X_nums), 0.0);
+    float SumOfYi = std::accumulate(std::begin(Y_nums), std::end(Y_nums), 0.0) ;
+    Xmean =  SumOfXi/ X_nums.size();
+    Ymean = SumOfYi/ Y_nums.size();
+    
+    float SumOfXsquares = 0.0;
+    	for (auto X : X_nums)
+	{
+		SumOfXsquares += pow((X), 2.0);
+	}
+    
+   // float b = ((inputSize * SumOfXY) - (SumOfXi * SumOfYi) )/ ((inputSize * SumOfXsquares) - (pow((SumOfXi), 2.0)));
+    
+      //  	cout.setf(ios::fixed);
+	//cout << std::setprecision(3) << b << endl;
+    
+    //Calullate SD
+    float sqrdistance = 0.0;
+
+	for (auto distance : X_nums)
+	{
+		sqrdistance += pow((distance - Xmean), 2.0);
+	}
+    
+    Xsd = sqrt(sqrdistance / inputSize);
+    
+    sqrdistance = 0.0;
+
+	for (auto distance : Y_nums)
+	{
+		sqrdistance += pow((distance - Ymean), 2.0);
+	}
+    
+    Ysd = sqrt(sqrdistance / inputSize);
+    
+    //Calcullate covariance:
+    float covXn = 0.0;
+    for(int i = 0; i < inputSize ; i++ )
+    {
+       // covXn += ( fabsf (X_nums[i] - Xmean)) * (fabsf (Y_nums[i] - Ymean));
+        covXn += (  (X_nums[i] - Xmean)) * ( (Y_nums[i] - Ymean));
+    }
+    
+    float denominator = inputSize * Xsd * Ysd;
+    
+	float PearsonCoeff =  covXn / denominator ;
+    
+    float b = PearsonCoeff * (Ysd/Xsd);
+    
+    float a = Ymean - (b * Xmean);
+    
+    float Y = a + (b * 80);//Y = a + bX
+    
+    	cout.setf(ios::fixed);
+	cout << std::setprecision(3) << Y << endl;
+    
+    return 0;
+}
