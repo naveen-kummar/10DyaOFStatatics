@@ -1,0 +1,47 @@
+from sklearn import linear_model
+
+mylist = raw_input().split()
+
+#mylist = mylist.split() 
+
+m = int(mylist[0])
+n = int(mylist[1])
+
+
+
+
+X = []
+Y = []
+for x in range (0, n):
+    Features = []
+    LinearEq = raw_input().split()
+    for y in range (0, m + 1):
+        
+        if y < m :
+            #print "Lessm" + y
+            Features.append(float(LinearEq[y]))
+            #print "x" + y+ ": " + LinearEq[y]
+        else:
+            #print "Greatm" + y
+            #print "Adding to Y"
+            Y.append(float(LinearEq[y]))
+            #print LinearEq[y]
+            #print "Y: " + LinearEq[y]
+    X.append(Features)
+    
+#print "X:"
+#print X
+
+#print "Y:"
+#print Y
+
+NumOfOutputs = int(raw_input())
+
+lm = linear_model.LinearRegression()
+lm.fit(X, Y)
+a = lm.intercept_
+b = lm.coef_
+
+for z in range (0, NumOfOutputs):
+    OutputFuncs = (raw_input().split())
+    print (a + (b[0] *float(OutputFuncs[0])) + (b[1]*float(OutputFuncs[1])))
